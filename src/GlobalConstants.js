@@ -8,7 +8,7 @@ export const ENTITIES = {
   RIDE: "ride",
   RIDER: "rider",
   RIDEE: "ridee",
-  PREFERENCES: "preferences",
+  PREFERENCE: "preference",
   MEMBER: "member",
   ADDRESS: "address",
   INSURANCE: "insurance",
