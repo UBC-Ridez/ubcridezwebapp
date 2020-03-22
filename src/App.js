@@ -1,6 +1,6 @@
 import SelectTable from "./components/SelectTable";
 import "./App.css";
-import Select from "react-dropdown-select";
+import Select from "react-select";
 import { ENTITIES } from "./GlobalConstants";
 import React, { useState } from "react";
 
@@ -15,7 +15,7 @@ const App = () => {
       <h1>UBC Ridez App</h1>
       <Select
         options={modifiedEntities}
-        onChange={values => setEntity(values)}
+        onChange={option => setEntity(option.value.toLowerCase())}
       />
       <SelectTable entity={entity} />
     </div>

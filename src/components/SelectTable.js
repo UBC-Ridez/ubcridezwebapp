@@ -1,22 +1,35 @@
 import { getApi } from "../api/ApiUtils";
 import React, { useState, useEffect } from "react";
-import ReactTable from "react-table";
+import ReactTable from "react-table-6";
+import "react-table-6/react-table.css";
 
 const SelectTable = props => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    getApi(props.entity, setData);
+    if (props.entity.length !== 0) getApi(props.entity, setData);
   }, [props.entity]);
 
-  const columns = Object.keys(data).map((key, id) => {
-    return {
-      Header: key,
-      accessor: key
-    };
-  });
+  const columns =
+    data.length > 0
+      ? Object.keys(data["0"]).map((key, id) => {
+          return {
+            Header: key
+              .replace(/([A-Z])/g, " $1")
+              // uppercase the first character
+              .replace(/^./, function(str) {
+                return str.toUpperCase();
+              }),
+            accessor: key
+          };
+        })
+      : [];
 
-  return props.entity ? <ReactTable data={data} columns={columns} /> : <></>;
+  return columns.length !== 0 ? (
+    <ReactTable data={data} columns={columns} />
+  ) : (
+    <></>
+  );
 };
 
 export default SelectTable;
