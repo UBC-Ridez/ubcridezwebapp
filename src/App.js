@@ -1,25 +1,17 @@
-import SelectTable from "./components/SelectTable";
-import "./App.css";
-import Select from "react-select";
-import { ENTITIES } from "./GlobalConstants";
-import React, { useState } from "react";
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import PageNotFound from "./components/PageNotFound";
+import MainPage from "./components/MainPage";
 
-const App = () => {
-  const [entity, setEntity] = useState("");
-  const modifiedEntities = Object.keys(ENTITIES).map(function(txt) {
-    return { label: txt, value: txt };
-  });
-
+function App() {
   return (
-    <div className="App">
-      <h1>UBC Ridez App</h1>
-      <Select
-        options={modifiedEntities}
-        onChange={option => setEntity(option.value.toLowerCase())}
-      />
-      <SelectTable entity={entity} />
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" exact component={props => <MainPage />} />
+        <Route component={PageNotFound} />
+      </Switch>
+    </BrowserRouter>
   );
-};
+}
 
 export default App;
