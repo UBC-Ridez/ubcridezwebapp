@@ -20,7 +20,7 @@ const SelectTable = props => {
               .replace(/^./, function(str) {
                 return str.toUpperCase();
               }),
-            accessor: key
+            accessor: typeof data["0"][key] == "object" ? key + ".id" : key
           };
         })
       : [];
