@@ -1,12 +1,20 @@
 import SelectTable from "./SelectTable";
+import ProjectTable from "./ProjectTable";
+import InsertTable from "./InsertTable";
+import DeleteTable from "./DeleteTable";
 import Select from "react-select";
-import { ENTITIES } from "../GlobalConstants";
+import { QUERY_TYPES, ENTITIES } from "../GlobalConstants";
 import React, { useState } from "react";
 
 const MainPage = () => {
   const [entity, setEntity] = useState("");
+  const [queryType, setQueryType] = useState(0);
+
   const modifiedEntities = Object.keys(ENTITIES).map(function(txt) {
     return { label: txt, value: txt };
+  });
+  const modifiedQT = Object.keys(QUERY_TYPES).map(function(txt) {
+    return { label: txt, value: QUERY_TYPES[txt] };
   });
 
   return (
@@ -16,7 +24,19 @@ const MainPage = () => {
         options={modifiedEntities}
         onChange={option => setEntity(option.value.toLowerCase())}
       />
-      <SelectTable entity={entity} />
+      {entity !== "" ? (
+        <Select
+          options={modifiedQT}
+          onChange={option => setQueryType(option.value)}
+        />
+      ) : (
+        <></>
+      )}
+      {queryType === 1 ? <InsertTable entity={entity} /> : <></>}
+      {queryType === 2 ? <DeleteTable entity={entity} /> : <></>}
+
+      {queryType === 4 ? <SelectTable entity={entity} /> : <></>}
+      {queryType === 5 ? <ProjectTable entity={entity} /> : <></>}
     </div>
   );
 };

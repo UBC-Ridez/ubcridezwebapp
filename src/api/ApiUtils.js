@@ -31,3 +31,16 @@ export const postApi = async (
       if (handleErrorFunc !== undefined) handleErrorFunc(error);
     });
 };
+
+export const deleteApi = async (apiUrl, handleSuccessFunc, handleErrorFunc) => {
+  axios
+    .delete(`${API_URL}/${apiUrl}`)
+    .then(response => {
+      if (handleSuccessFunc !== undefined) handleSuccessFunc(response.data);
+      return response.data;
+    })
+    .catch(error => {
+      console.log(error);
+      if (handleErrorFunc !== undefined) handleErrorFunc(error);
+    });
+};

@@ -14,3 +14,15 @@ export const ENTITIES = {
   INSURANCE: "insurance",
   VEHICLE: "vehicle"
 };
+
+export const QUERY_TYPES = {
+  INSERT: 1,
+  DELETE: 2,
+  UPDATE: 3,
+  SELECT: 4,
+  PROJECT: 5,
+  JOIN: 6,
+  AGGREGATE: 7,
+  NESTED: 8,
+  DIVISION: 9
+};

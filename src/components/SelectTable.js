@@ -1,34 +1,62 @@
 import { getApi } from "../api/ApiUtils";
+import ViewResults from "./ViewResults";
+import Columns from "./Columns";
+import Select from "react-select";
 import React, { useState, useEffect } from "react";
-import ReactTable from "react-table-6";
-import "react-table-6/react-table.css";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+import Chip from "@material-ui/core/Chip";
+
+const useStyles = makeStyles(theme => ({
+  button: {
+    margin: theme.spacing(1)
+  },
+  input: {
+    display: "none"
+  }
+}));
 
 const SelectTable = props => {
+  const classes = useStyles();
+
   const [data, setData] = useState([]);
+  const [column, setColumn] = useState("");
+  const [refreshData, setRefreshData] = useState(false);
+  const [cond, setCond] = useState("");
 
   useEffect(() => {
-    if (props.entity.length !== 0) getApi(props.entity, setData);
-  }, [props.entity]);
+    if (props.entity.length !== 0)
+      getApi(
+        `result/${props.entity}/getConditionedResults${
+          cond === "" ? "" : `?cond=${cond}`
+        }`,
+        setData
+      );
+  }, [props.entity, refreshData]);
 
-  const columns =
-    data.length > 0
-      ? Object.keys(data["0"]).map((key, id) => {
-          return {
-            Header: key
-              .replace(/([A-Z])/g, " $1")
-              // uppercase the first character
-              .replace(/^./, function(str) {
-                return str.toUpperCase();
-              }),
-            accessor: typeof data["0"][key] == "object" ? key + ".id" : key
-          };
-        })
-      : [];
+  return (
+    <>
+      <TextField
+        id="outlined-basic"
+        label="Condition"
+        variant="outlined"
+        onChange={e => {
+          setCond(e.target.value);
+        }}
+      />
+      <Button
+        variant="contained"
+        onClick={() => {
+          setRefreshData(!refreshData);
+        }}
+      >
+        {" "}
+        REFRESH
+      </Button>
 
-  return columns.length !== 0 ? (
-    <ReactTable data={data} columns={columns} />
-  ) : (
-    <></>
+      <ViewResults data={data} />
+    </>
   );
 };
 
