@@ -5,7 +5,7 @@ import DeleteTable from "./DeleteTable";
 import AggTable from "./AggTable";
 import JoinTable from "./JoinTable";
 import DivisionTable from "./DivisionTable";
-
+import UpdateTable from "./UpdateTable";
 import Select from "react-select";
 import { QUERY_TYPES, ENTITIES } from "../GlobalConstants";
 import React, { useState } from "react";
@@ -42,6 +42,7 @@ const MainPage = () => {
       )}
       {queryType === 1 ? <InsertTable entity={entity} /> : <></>}
       {queryType === 2 ? <DeleteTable entity={entity} /> : <></>}
+      {queryType === 3 ? <UpdateTable entity={entity} /> : <></>}
       {queryType === 4 ? <SelectTable entity={entity} /> : <></>}
       {queryType === 5 ? <ProjectTable entity={entity} /> : <></>}
       {queryType === 6 ? <JoinTable entity={entity} /> : <></>}
