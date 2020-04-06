@@ -18,20 +18,35 @@ const Columns = props => {
     getApi(`result/${props.entity}/columns`, setColumns);
   }, [props.entity, setOption, setColumnOptions]);
 
-  return (
+  return props.isMulti ? (
     <>
       <Select
         isMulti
         options={columnOptions}
         onChange={option => {
-          let resultOpt = Object.keys(option).map(i => option[i]);
-          resultOpt = resultOpt.map(function(obj) {
-            return obj["value"];
-          });
-          let resultCols = resultOpt.join(",");
+          if (option) {
+            let resultOpt = Object.keys(option).map(i => option[i]);
+            resultOpt = resultOpt.map(function(obj) {
+              return obj["value"];
+            });
+            let resultCols = resultOpt.join(",");
 
-          setOption(resultCols.toLowerCase());
-          if (props.parentCallback) props.parentCallback(resultCols);
+            setOption(resultCols.toLowerCase());
+            if (props.parentCallback) props.parentCallback(resultCols);
+          } else {
+            setOption("");
+            if (props.parentCallback) props.parentCallback("");
+          }
+        }}
+      />
+    </>
+  ) : (
+    <>
+      <Select
+        options={columnOptions}
+        onChange={option => {
+          setOption(option["value"]);
+          if (props.parentCallback) props.parentCallback(option["value"]);
         }}
       />
     </>

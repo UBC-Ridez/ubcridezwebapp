@@ -26,3 +26,11 @@ export const QUERY_TYPES = {
   NESTED: 8,
   DIVISION: 9
 };
+
+export const AGG_FUNCS = {
+  COUNT: "count",
+  MIN: "min",
+  MAX: "max",
+  AVG: "avg",
+  SUM: "sum"
+};

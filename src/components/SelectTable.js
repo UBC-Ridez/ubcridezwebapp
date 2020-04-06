@@ -54,7 +54,7 @@ const SelectTable = props => {
         {" "}
         REFRESH
       </Button>
-
+      Results:
       <ViewResults data={data} />
     </>
   );

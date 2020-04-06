@@ -19,7 +19,13 @@ const ProjectTable = props => {
 
   return (
     <>
-      <Columns entity={props.entity} parentCallback={setColumn} />
+      Projected Columns:
+      <Columns
+        entity={props.entity}
+        parentCallback={setColumn}
+        isMulti={true}
+      />
+      Results:
       <ViewResults data={data} />
     </>
   );
